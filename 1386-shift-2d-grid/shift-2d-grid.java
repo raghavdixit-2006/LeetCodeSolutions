@@ -1,39 +1,64 @@
 class Solution {
     public List<List<Integer>> shiftGrid(int[][] grid, int k) {
-        int len1 = grid.length;
-        int len2 = grid[0].length;
-        List<List<Integer>> list = new ArrayList<>();
+        int m = grid.length;
+        int n = grid[0].length;
 
-        int idx1 = 0;
-        int idx2 = 0;
-        k = k%(len1*len2);
-        int n = k;
+        int arr[] = new int[m * n];
+        int j = 0;
+        for (int i = 0; i < m; i++) { //loop to convert 2d mat into 1d arr
+            for (int z = 0; z < n; z++) {
+                arr[j] = grid[i][z];
+                j++;
 
-        for(int i = len1-1; i >= 0; i--){
-            list.add(new ArrayList<>());
-            for(int j = len2-1; j >= 0; j--){
-                if(n==0) break;
-                n--;
-                idx1=i;
-                idx2=j;
             }
+
+        }
+        int r = arr.length;
+        k = k % r; 
+//using logic of que 189 which is rotate arr to rotate k elements of arr
+        reverse(arr, 0, r - 1); 
+        reverse(arr, 0, k - 1);
+        reverse(arr, k, r - 1);
+
+//again converting 1d arr to 2d mat
+        j = 0;
+        for (int i = 0; i < m; i++) {
+            for (int z = 0; z < n; z++){
+                grid[i][z] = arr[j];
+                j++;
+                
+            }
+                
+
         }
 
-        for(int i = 0; i<len1; i++){
-            for(int j = 0; j<len2; j++){
-                if(idx2 >= len2){
-                    idx1++;
-                    idx2 = 0;
-                }
-                if(idx1 >= len1){
-                    idx1 = 0;
-                    idx2 = 0;
-                }
-                list.get(i).add(grid[idx1][idx2]);
-                idx2++;
+//acc to quetion moving 2d arr to list
+        List<List<Integer>> ans = new ArrayList<>();
+
+        for (int i = 0; i < m; i++) {
+
+            List<Integer> l = new ArrayList<>();
+
+            for (int z = 0; z < n; z++) {
+                l.add(grid[i][z]);
             }
+
+            ans.add(l);
         }
-        // System.out.println(grid[idx1][idx2]);
-        return list;
+
+        return ans;
+
+    }
+
+//function to reverse arr using 2 pointer
+
+    private void reverse(int[] nums, int i, int j) {
+        while (i < j) {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+            i++;
+            j--;
+        }
     }
 }
