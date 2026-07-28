@@ -25,12 +25,7 @@ class Solution {
             char ch = (char) ('a' + idx);
             sb.append(ch);
         }}
-//        for (int i = 25; i >= 0; i--) {
-//            if(arr[i]>0){
-//                char ch = (char) ('a' + i);
-////                sb.append(ch);
-//            }
-//        }
+        
         for (int i = 25; i >= 0; i--) {
             if(arr[i]==0) continue;
             if(arr[i]%2 != 0) continue;
