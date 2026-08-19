@@ -1,18 +1,16 @@
 class Solution {
     public int digitFrequencyScore(int n) {
-        HashMap<Integer, Integer> map = new HashMap<>();
-        while(n!=0){
-            int x = n%10;
-            if(map.containsKey(x)){
-                map.put(x, map.get(x)+1);
-            }
-            else map.put(x, 1);
+        int[] freq = new int[10];
+
+        while (n != 0) {
+            int digit = n % 10;
             n /= 10;
+            freq[digit]++;
         }
-        int ans = 0;
-        for(int key : map.keySet()){
-            ans += key * map.get(key);
-        }
-        return ans;
+
+        int score = 0;
+        for (int i = 0; i < 10; i++) score += i * freq[i];
+
+        return score;
     }
 }
